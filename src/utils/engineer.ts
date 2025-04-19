@@ -5,7 +5,6 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 interface AnalyzeCodeResponse {
   issues: {
     line: number;
-    endLine?: number;
     message: string;
     severity: "error" | "warning" | "info";
   }[];
@@ -42,7 +41,6 @@ Format your response as a JSON object with an array of issues:
   "issues": [
     {
       "line": <starting line number>,
-      "endLine": <ending line number (optional, same as line if single line)>,
       "message": "<your feedback>",
       "severity": "<error|warning|info>"
     },
