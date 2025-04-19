@@ -23,6 +23,7 @@ export type IssueSeverity = "error" | "warning" | "info";
 
 export interface CodeIssue {
   line: number;
+  endLine?: number;
   message: string;
   severity: IssueSeverity;
 }
@@ -47,6 +48,25 @@ const CodeReview = ({ code, issues }: CodeReviewProps) => {
       }
     }
   }, [code, codeLines]);
+
+  const linesToIssuesMap = React.useMemo(() => {
+    const lineMap = {} as Record<number, CodeIssue[]>;
+
+    issues.forEach(issue => {
+      const startLine = issue.line;
+      const endLine = issue.endLine || issue.line;
+
+      for (let lineNum = startLine; lineNum <= endLine; lineNum++) {
+        if (!lineMap[lineNum]) {
+          lineMap[lineNum] = [];
+        }
+        lineMap[lineNum].push(issue);
+      }
+    });
+
+    return lineMap;
+  }, [issues]);
+
 
   const detectLanguage = (code: string): string => {
     if (code.includes('import React') || code.includes('export interface') || code.includes('<React.') || code.includes('</>')) {
@@ -129,14 +149,6 @@ const CodeReview = ({ code, issues }: CodeReviewProps) => {
     return 'typescript';
   };
 
-  const issuesByLine = issues.reduce((acc, issue) => {
-    if (!acc[issue.line]) {
-      acc[issue.line] = [];
-    }
-    acc[issue.line].push(issue);
-    return acc;
-  }, {} as Record<number, CodeIssue[]>);
-
   return (
     <div className="code-container overflow-hidden rounded-lg">
       <pre ref={codeRef} className="hidden">{code}</pre>
@@ -147,10 +159,8 @@ const CodeReview = ({ code, issues }: CodeReviewProps) => {
             <tbody>
               {codeLines.map((line, index) => {
                 const lineNumber = index + 1;
-                const lineIssues = issuesByLine[lineNumber] || [];
-                const severityClass = lineIssues.length > 0
-                  ? `line-highlight-${lineIssues[0].severity}`
-                  : "";
+                const lineIssues = linesToIssuesMap[lineNumber] || [];
+
 
                 const language = detectLanguage(code);
                 const highlightedCode = Prism.highlight(
@@ -160,11 +170,11 @@ const CodeReview = ({ code, issues }: CodeReviewProps) => {
                 );
 
                 return (
-                  <tr key={index} className={`${severityClass} group hover:bg-secondary/80`}>
+                  <tr key={index} className={`group hover:bg-secondary/80`}>
                     <td className="px-2 text-right border-r border-border line-number w-12">
                       {lineNumber}
                     </td>
-                    <td className="px-4 py-1 font-mono text-sm whitespace-pre">
+                    <td className="px-4 py-1 font-mono text-sm whitespace-pre-wrap">
                       <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
                     </td>
                   </tr>
@@ -180,11 +190,11 @@ const CodeReview = ({ code, issues }: CodeReviewProps) => {
             <tbody>
               {codeLines.map((_, index) => {
                 const lineNumber = index + 1;
-                const lineIssues = issuesByLine[lineNumber] || [];
+                const lineIssues = linesToIssuesMap[lineNumber] || [];
 
                 return (
                   <tr key={index} className="hover:bg-secondary/80">
-                    <td className="py-1 px-4 h-[32px]">
+                    <td className="py-1 px-4 h-[28px]">
                       {lineIssues.map((issue, i) => (
                         <div
                           key={i}

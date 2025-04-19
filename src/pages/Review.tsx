@@ -8,6 +8,7 @@ import CodeReview, { CodeIssue } from "@/components/CodeReview";
 import { analyzeCode } from "@/utils/engineer";
 import { useToast } from "@/hooks/use-toast";
 import ReviewStats from "@/components/ReviewStats";
+import AnalysisLoader from "@/components/AnalysisLoader";
 
 const Review = () => {
     const navigate = useNavigate();
@@ -59,7 +60,10 @@ const Review = () => {
                                 className="text-3xl mb-6"
                             />
 
-                            <CodeInput onSubmitCode={handleSubmitCode} isLoading={isLoading} />
+                            
+                            {isLoading ? (
+                                <AnalysisLoader />
+                            ) : <CodeInput onSubmitCode={handleSubmitCode} isLoading={isLoading} />}
                         </div>
                     </div>) : (
                     <div className="space-y-6">
@@ -81,7 +85,7 @@ const Review = () => {
                                 <CodeReview code={reviewedCode} issues={issues} />
                             </>
                         ) : (
-                            <div className="bg-secondary/50 p-6 rounded-lg text-center">
+                            <div className="p-6 rounded-lg text-center">
                                 <h3 className="text-xl font-medium mb-2">No issues found</h3>
                                 <p className="text-muted-foreground">
                                     Your code looks great! No improvements or issues were detected.

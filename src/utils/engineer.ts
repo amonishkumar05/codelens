@@ -5,6 +5,7 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 interface AnalyzeCodeResponse {
   issues: {
     line: number;
+    endLine?: number;
     message: string;
     severity: "error" | "warning" | "info";
   }[];
@@ -34,12 +35,14 @@ You are a senior developer reviewing code. Analyze this code carefully and provi
 2. Suggest performance optimizations
 3. Point out security concerns
 4. Recommend best practices and design pattern improvements
+5. Do not lose track of the line number, do not mess up the line number
 
 Format your response as a JSON object with an array of issues:
 {
   "issues": [
     {
-      "line": <line number>,
+      "line": <starting line number>,
+      "endLine": <ending line number (optional, same as line if single line)>,
       "message": "<your feedback>",
       "severity": "<error|warning|info>"
     },
@@ -60,6 +63,7 @@ Format your response as a JSON object with an array of issues:
         issues: z.array(
           z.object({
             line: z.number(),
+            endLine: z.number().optional(),
             message: z.string(),
             severity: z.enum(["error", "warning", "info"]),
           })
