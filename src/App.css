@@ -1,0 +1,123 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.pixel {
+    font-feature-settings: "ss15";
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Prism Syntax Highlighting Enhancements */
+.code-container {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.code-container .token.comment,
+.code-container .token.prolog,
+.code-container .token.doctype,
+.code-container .token.cdata {
+  color: #8b949e;
+}
+
+.code-container .token.punctuation {
+  color: #c9d1d9;
+}
+
+.code-container .token.property,
+.code-container .token.tag,
+.code-container .token.boolean,
+.code-container .token.number,
+.code-container .token.constant,
+.code-container .token.symbol,
+.code-container .token.deleted {
+  color: #ff7b72;
+}
+
+.code-container .token.selector,
+.code-container .token.attr-name,
+.code-container .token.string,
+.code-container .token.char,
+.code-container .token.builtin,
+.code-container .token.inserted {
+  color: #a5d6ff;
+}
+
+.code-container .token.operator,
+.code-container .token.entity,
+.code-container .token.url,
+.code-container .language-css .token.string,
+.code-container .style .token.string {
+  color: #a5d6ff;
+}
+
+.code-container .token.atrule,
+.code-container .token.attr-value,
+.code-container .token.keyword {
+  color: #ff7b72;
+}
+
+.code-container .token.function,
+.code-container .token.class-name {
+  color: #d2a8ff;
+}
+
+.code-container .token.regex,
+.code-container .token.important,
+.code-container .token.variable {
+  color: #f2cc60;
+}
+
+.line-highlight-error {
+  background-color: rgba(255, 71, 87, 0.1);
+  border-left: 3px solid rgba(255, 71, 87, 0.8);
+}
+
+.line-highlight-warning {
+  background-color: rgba(250, 173, 20, 0.1);
+  border-left: 3px solid rgba(250, 173, 20, 0.8);
+}
+
+.line-highlight-info {
+  background-color: rgba(14, 165, 233, 0.1);
+  border-left: 3px solid rgba(14, 165, 233, 0.8);
+}
