@@ -1,16 +1,8 @@
 
-import { useState } from "react";
 import GradientHeader from "@/components/GradientHeader";
-import CodeInput from "@/components/CodeInput";
-import CodeReview, { CodeIssue } from "@/components/CodeReview";
-import ReviewStats from "@/components/ReviewStats";
-import { analyzeCode } from "@/utils/engineer";
-import { useToast } from "@/hooks/use-toast";
 import Pixelate from "@/components/Pixelate";
 
 const Index = () => {
-
-  const { toast } = useToast();
 
 
   return (
