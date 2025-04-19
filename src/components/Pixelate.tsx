@@ -8,7 +8,7 @@ export default function Pixelate({
     className?: string,
 }) {
     const shouldPixelate = (letter: string) => {
-        return ['a', 'u', 'y', 'd', 's', 'g', 'k', 'p'].includes(letter.toLowerCase());
+        return ['a', 'u', 'y', 'd', 's', 'g', 'k', 'p', '0'].includes(letter.toLowerCase());
     };
 
     const processedText = children.split('').map((letter, index) => (
