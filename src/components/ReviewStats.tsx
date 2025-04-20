@@ -12,7 +12,7 @@ const ReviewStats: FC<ReviewStatsProps> = ({ issues }) => {
   const infoCount = issues.filter(issue => issue.severity === "info").length;
   
   return (
-    <div className="flex space-x-4 mb-4">
+    <div className="flex space-x-4">
       <div className="flex items-center gap-2">
         <div className="w-3 h-3 rounded-full bg-code-error"></div>
         <span className="text-sm">
