@@ -1,8 +1,9 @@
+![CodeLens Banner](/public/banner.png)
+
 `CodeLens`
 # Ship quality at scale.
 ### Review smart. Merge fast. Ship better.
 
-![CodeLens Banner](/public/homepage.png)
 
 CodeLens brings instant insight to your codebase. Spot issues, track changes, and review with confidence. Because clean code isn't a luxury, it's a standard.
 
