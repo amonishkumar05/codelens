@@ -80,9 +80,9 @@ This project is built with:
 4. **Implement**: Apply the recommended changes to improve your code
 
 ## Screenshots
-![Code Review Interface](/public/review.png)
-![Code Review 2 Interface](/public/review2.png)
 ![Home page](/public/homepage.png)
+![Code Review Interface](/public/review.png)
+![Vulnerability Interface](/public/review2.png)
 
 ## Demo
 (soon)
