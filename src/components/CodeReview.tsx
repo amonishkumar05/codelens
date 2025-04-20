@@ -22,6 +22,34 @@ import "prismjs/components/prism-yaml";
 export type IssueSeverity = "error" | "warning" | "info";
 export type VulnerabilitySeverity = "critical" | "high" | "medium" | "low" | "info";
 
+const stringSimilarity = (str1: string, str2: string): number => {
+  if (!str1 || !str2) return 0;
+  const shorterLength = Math.min(str1.length, str2.length);
+
+  if (shorterLength < 10) return 0;
+
+  str1 = str1.toLowerCase();
+  str2 = str2.toLowerCase();
+
+
+  if (str1.includes(str2) || str2.includes(str1)) {
+    return 0.8;
+  }
+
+
+  const words1 = new Set(str1.split(/\s+/).filter(w => w.length > 3));
+  const words2 = new Set(str2.split(/\s+/).filter(w => w.length > 3));
+
+  let matchCount = 0;
+  for (const word of words1) {
+    if (words2.has(word)) matchCount++;
+  }
+
+  const totalUniqueWords = new Set([...words1, ...words2]).size;
+  return totalUniqueWords > 0 ? matchCount / totalUniqueWords : 0;
+};
+
+
 export interface CodeIssue {
   line: number;
   message: string;
@@ -77,6 +105,7 @@ const CodeReview = ({ code, issues, vulnerabilities = [] }: CodeReviewProps) => 
     });
 
 
+
     vulnerabilities.forEach(vuln => {
       const lineNum = vuln.line;
 
@@ -105,32 +134,6 @@ const CodeReview = ({ code, issues, vulnerabilities = [] }: CodeReviewProps) => 
   }, [issues, vulnerabilities]);
 
 
-  const stringSimilarity = (str1: string, str2: string): number => {
-    if (!str1 || !str2) return 0;
-    const shorterLength = Math.min(str1.length, str2.length);
-
-    if (shorterLength < 10) return 0;
-
-    str1 = str1.toLowerCase();
-    str2 = str2.toLowerCase();
-
-
-    if (str1.includes(str2) || str2.includes(str1)) {
-      return 0.8;
-    }
-
-
-    const words1 = new Set(str1.split(/\s+/).filter(w => w.length > 3));
-    const words2 = new Set(str2.split(/\s+/).filter(w => w.length > 3));
-
-    let matchCount = 0;
-    for (const word of words1) {
-      if (words2.has(word)) matchCount++;
-    }
-
-    const totalUniqueWords = new Set([...words1, ...words2]).size;
-    return totalUniqueWords > 0 ? matchCount / totalUniqueWords : 0;
-  };
 
   const detectLanguage = (code: string): string => {
     if (code.includes('import React') || code.includes('export interface') || code.includes('<React.') || code.includes('</>')) {

@@ -5,7 +5,7 @@ import Pixelate from "@/components/Pixelate";
 
 import CodeInput from "@/components/CodeInput";
 import CodeReview, { CodeIssue, SecurityVulnerability } from "@/components/CodeReview";
-import { analyzeCode } from "@/utils/engineer";
+import { analyzeCode } from "@/utils/analyzeCode";
 import { scanForVulnerabilities, VulnerabilityResult } from "@/utils/vulnerabilityScanner";
 import { useToast } from "@/hooks/use-toast";
 import ReviewStats from "@/components/ReviewStats";
@@ -27,7 +27,7 @@ const Review = () => {
         setCode(codeToAnalyze);
 
         try {
-            // Run both analyses in parallel
+
             const [codeAnalysis, vulnerabilityAnalysis] = await Promise.all([
                 analyzeCode(codeToAnalyze),
                 scanForVulnerabilities(codeToAnalyze)

@@ -80,6 +80,7 @@ This project is built with:
 
 ## Screenshots
 ![Code Review Interface](/public/review.png)
+![Code Review 2 Interface](/public/review2.png)
 ![Home page](/public/homepage.png)
 
 ## Demo
